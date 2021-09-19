@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, FlatList, Button } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 
-import firestore from "@react-native-firebase/firestore";
-import { getGroups, joinGroup } from "../../API/FirebaseAPI";
-import ListItem from "../../ListItem";
-import { auth, db } from "../../firebase";
+import { getJoinedGroups, submitSubject} from "../../API/FirebaseAPI";
+import { auth } from "../../firebase/index";
+import AddPostScreen from "./AddPostScreen";
 
-//import {getGroups} from '../API/FirebaseAPI'
-
-// when you initially open the screen, list groups - have a join option
-
-// when you click on a group, view participants
-
-function BrowseGroupsScreen() {
+function ForumLandingPage({navigation}) {
   const [groupsList, setGroupsList] = useState();
 
   var user = auth.currentUser;
@@ -22,7 +22,7 @@ function BrowseGroupsScreen() {
   });
 
   function getData() {
-    getGroups(groupsRetrieved);
+    getJoinedGroups(user.email, groupsRetrieved);
   }
 
   function groupsRetrieved(groupsList) {
@@ -38,47 +38,44 @@ function BrowseGroupsScreen() {
 
   const Item = ({ name }) => (
     <View style={styles.item}>
-      <Text style={styles.itemName}>{name}</Text>
-      <View>
-        <Button style={styles.joinButton} title = "Join" onPress = {() => {joinGroup(user.displayName, user.email, name)}}/>
-      </View>
+      {name.map((r) => (
+        <TouchableOpacity
+          item={r}
+          onPress={() =>
+           // submitSubject()
+            navigation.navigate("View Posts" /*"Groups", {group : item}*/)
+          }
+        >
+          <Text style={styles.itemName}>{r}</Text>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 
-  /*onGroupsReceived = (foodList) => {
-        this.setState(prevState => ({
-          foodList: prevState.foodList = foodList
-        }));
-      }
-    
-    componentDidMount() {
-        getFoods(this.onGroupsReceived);
-    }*/
-
-  //console.log(getGroups());
-
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Groups</Text>
+      <Text style={styles.titleText}>Group Forums</Text>
       <Text style={styles.captionText}>
-        Join a group that is of interest or click to view participants
+        Click on a group to view their forum
       </Text>
       <FlatList
         style={styles.flatList}
         // ItemSeparatorComponent={() => <Divider style={{ backgroundColor: 'black' }} />}
         data={groupsList}
         ItemSeparatorComponent={ItemSeparatorView}
-        renderItem={({ item }) => <Item name={item} />}
-        /*keyExtractor={(item) => item.id}
-                        renderItem={({item}) => 
-                        <ListItem item={item}
-                        onPress={()=> navigation.navigate("Groups", {group : item})}/> }*/
+        renderItem={({ item }) => (
+          //.log({item}
+          <Item name={item} />
+        )}
+        /* keyExtractor={(item) => item.id}
+                          renderItem={({item}) => 
+                           }*/
       />
     </View>
   );
 }
 
-export default BrowseGroupsScreen;
+export default ForumLandingPage;
 
 const styles = StyleSheet.create({
   container: {
@@ -97,7 +94,6 @@ const styles = StyleSheet.create({
   item: {
     height: 75,
     justifyContent: "space-between",
-    flexDirection: "row",
     marginVertical: 8,
     marginHorizontal: 16,
     padding: 20,

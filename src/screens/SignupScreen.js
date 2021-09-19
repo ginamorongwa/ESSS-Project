@@ -60,7 +60,7 @@ function SignupScreen({ navigation }) {
       displayName: displayName,
       degree: degree,
       year: year,
-      groups: {},
+      groups: [],
     });
   };
 
