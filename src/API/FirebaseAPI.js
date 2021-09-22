@@ -1,26 +1,22 @@
 import { firebase } from "@react-native-firebase/app";
-import { db, storage } from "../firebase/index";
+import { db, storage, auth } from "../firebase/index";
 
-export  function joinGroup(dName, email, docID) {
+export function joinGroup(dName, email, docID) {
   db.collection("groups")
     .doc(docID.toString())
     .set({
-      displayName: dName,
-      email: email,
+      [email] : {
+      displayName: dName }
+      
     })
     .catch((error) => console.log(error));
 
-  
-
   var userRef = db.collection("users").doc(email.toString());
-  
 
   // Atomically add a new region to the "regions" array field.
   userRef.update({
     groups: storage.FieldValue.arrayUnion(docID.toString()),
   });
-
- 
 }
 
 export async function getJoinedGroups(email, groupsRetrieved) {
@@ -33,7 +29,7 @@ export async function getJoinedGroups(email, groupsRetrieved) {
     .then((documentSnapshot) => {
       if (documentSnapshot.exists) {
         let data = documentSnapshot.data();
-        groupList.push(data["groups"])
+        groupList.push(data["groups"]);
         //console.log("User groups: ", data["groups"]);
       }
     });
@@ -46,20 +42,36 @@ export async function getJoinedGroups(email, groupsRetrieved) {
         //groupList.push(doc.data());
     })*/
 
-    groupsRetrieved(groupList);
+  groupsRetrieved(groupList);
 }
 
-export async function submitSubject(/*subject, submitComplete*/) {
-  
-  
-    const documentSnapshot = await db 
+export async function createGroupForum(docID, email, data, date) {
+  const documentSnapshot = await db
     .collection("posts")
+    .doc(docID.toString())
     .get()
     .then((documentSnapshot) => {
-        console.log(documentSnapshot.exists)
+      if (documentSnapshot.data().size === undefined) {
+        db.collection("posts").doc(docID.toString()).add({
+          creator: email,
+          post: data,
+          createdAt: date,
+          replies: [],
+        });
+      } else {
+      }
+    });
+
+  /*  })
+        .set ({
+        creator: "",
+        content: "",
+        createdAt: "",
+        replied: [],
+
     })
 
-    /*if()
+    if()
     .add(subject)
     .then((snapshot) => {
       subject.id = snapshot.id;
@@ -68,6 +80,115 @@ export async function submitSubject(/*subject, submitComplete*/) {
     .then(() => submitComplete())
     .catch((error) => console.log(error));*/
 }
+
+export async function submitSubject(docID, subject, submitComplete) {
+  var user = auth.currentUser;
+
+  db.collection("posts")
+    .doc(docID.toString())
+    .set({
+      [user.email] : subject
+    
+    }, {merge : true})
+    .then((snapshot) => {
+      subject.id = snapshot.id;
+      snapshot.set(subject);
+    })
+    .then(() => submitComplete())
+    .catch((error) => console.log(error));
+}
+
+export async function getGroupPosts(groupsRetrieved) {
+  var groupList = [];
+
+  var snapshot = await db.collection("posts").get();
+
+  groupList = snapshot.docs.map((doc) => doc.id);
+
+  // return snapshot.docs.map((((doc) => doc.documentID).toList()))
+  /*  snapshot.forEach(() =>{
+        groupList.push(doc.data());
+    })*/
+
+  groupsRetrieved(groupList);
+}
+
+export async function getForumInfo(docID, dataRetrieved) {
+  var dataList = [];
+
+  var documentSnapshot = await db
+  .collection("posts")
+  .doc(docID.toString())
+  .get()
+  .then((documentSnapshot) => {
+    if (documentSnapshot.exists) {
+    //  console.log('User data: ', documentSnapshot.data())
+      let data = documentSnapshot.data();
+      dataList.push(data)
+
+     // for(let index in data){
+     //   dataList.push(data[index]);
+     // }
+     // dataRetrieved(data)
+     // dataList.push(data);
+      //console.log("User groups: ", data["groups"]);
+    }
+  });
+  
+
+  
+  
+
+ // data = snapshot.docs.map((doc) => doc.id);
+
+  // return snapshot.docs.map((((doc) => doc.documentID).toList()))
+   // documentSnapshot.forEach(() =>{
+   //     dataList.push(data);
+   // })
+    //console.log(dataList)
+    dataRetrieved(dataList)
+ 
+}
+
+export async function getUserInfo(email, dataRetrieved) {
+  var dataList = [];
+
+  var documentSnapshot = await db
+  .collection("users")
+  .doc(email)
+  .get()
+  .then((documentSnapshot) => {
+    if (documentSnapshot.exists) {
+    //  console.log('User data: ', documentSnapshot.data())
+      let data = documentSnapshot.data();
+      dataList.push(data)
+    }
+  });
+
+
+    dataRetrieved(dataList)
+ 
+}
+
+export async function getParticipants(docID, dataRetrieved) {
+  var dataList = [];
+
+  var documentSnapshot = await db
+  .collection("groups")
+  .doc(docID.toString())
+  .get()
+  .then((documentSnapshot) => {
+    if (documentSnapshot.exists) {
+      let data = documentSnapshot.data();
+      dataList.push(data)
+    }
+  });
+
+
+    dataRetrieved(dataList)
+ 
+}
+
 
 export async function getGroups(groupsRetrieved) {
   var groupList = [];

@@ -1,4 +1,3 @@
-import { NavigationContainer } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { FlatList } from "react-native";
 import {
@@ -16,10 +15,8 @@ import { getUserInfo } from "../../API/FirebaseAPI";
 
 import { auth, db } from "../../firebase";
 
-function ProfileScreen({navigation}) {
-  var user = auth.currentUser;
-  var userEmail = user.email.toString();
-
+function UsersProfileScreen(email) {
+  
   const [dataList, setDataList] = useState();
 
   useEffect(() => {
@@ -27,7 +24,7 @@ function ProfileScreen({navigation}) {
   });
 
   function getData() {
-    getUserInfo(userEmail, dataRetrieved);
+    getUserInfo(email, dataRetrieved);
   }
 
   function dataRetrieved(dataList) {
@@ -64,15 +61,6 @@ function ProfileScreen({navigation}) {
     </View>
   );
 
-   function logout (){
-    try{
-      auth.signOut();
-      navigation.navigate("Login")
-    }catch(e){
-      console.log("Could not logout");
-    }
-}
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView
@@ -93,13 +81,9 @@ function ProfileScreen({navigation}) {
         <View style={styles.contactBtnWrapper}>
           <Button
             style={styles.contactBtn}
-            title="Edit"
+            title="Contact"
             onPress={() => Linking.openURL("mailto:" + userEmail)}
-          />
-          <Button
-          style={styles.logoutBtn}
-          title="Log Out"
-          onPress={() => logout() }/>
+          ></Button>
         </View>
 
         <View style={styles.userInfoWrapper}>

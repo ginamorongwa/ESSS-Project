@@ -5,13 +5,30 @@ import "@firebase/firestore";
 // Replace this with your Firebase SDK config snippet
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCUSY7bU0tB8cxxnMo020-pVcgZT3ygw7k",
+
+  /*apiKey: "AIzaSyCUSY7bU0tB8cxxnMo020-pVcgZT3ygw7k",
   authDomain: "esssproj.firebaseapp.com",
   projectId: "esssproj",
   storageBucket: "esssproj.appspot.com",
   messagingSenderId: "560492761933",
   appId: "1:560492761933:web:b388a56210f7d2ade4dd04",
-  measurementId: "G-TC74PBG26W"
+  measurementId: "G-TC74PBG26W"*/
+
+  /*apiKey: "AIzaSyDJNrRiujlkTCM11XYLmoiFzDUCVbSWTvU",
+  authDomain: "esss-d5970.firebaseapp.com",
+  projectId: "esss-d5970",
+  storageBucket: "esss-d5970.appspot.com",
+  messagingSenderId: "960134604085",
+  appId: "1:960134604085:web:121d9eb8d70cfd57b8987c",
+  measurementId: "G-QCRLFXX167"*/
+
+  apiKey: "AIzaSyAIqT-uDTArSld2mpE6NWsUq4EhpUay0YQ",
+  authDomain: "esssproject.firebaseapp.com",
+  projectId: "esssproject",
+  storageBucket: "esssproject.appspot.com",
+  messagingSenderId: "1030917353274",
+  appId: "1:1030917353274:web:7336e3072b9dcd5c87ea03",
+  measurementId: "G-L60P804LZ5"
 };
 let app;
 if (firebase.apps.length === 0) {

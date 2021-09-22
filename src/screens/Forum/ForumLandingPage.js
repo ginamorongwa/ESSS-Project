@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { getJoinedGroups, submitSubject} from "../../API/FirebaseAPI";
-import { auth } from "../../firebase/index";
+import { createGroupForum, emptyForum, getJoinedGroups, submitSubject} from "../../API/FirebaseAPI";
+import { db, auth } from "../../firebase/index";
 import AddPostScreen from "./AddPostScreen";
 
 function ForumLandingPage({navigation}) {
@@ -19,10 +19,12 @@ function ForumLandingPage({navigation}) {
 
   useEffect(() => {
     getData();
+
   });
 
   function getData() {
     getJoinedGroups(user.email, groupsRetrieved);
+    
   }
 
   function groupsRetrieved(groupsList) {
@@ -36,15 +38,35 @@ function ForumLandingPage({navigation}) {
     );
   };
 
+  async function getScreen (doc) {
+    const documentSnapshot = await db
+    .collection("posts")
+    .doc(doc.toString())
+    .get()
+    .then((documentSnapshot) => {
+      var numberOfKeys = Object.keys(documentSnapshot.data()).length;
+      if (numberOfKeys === 0) {
+        navigation.navigate("Add Post", { docID: doc });
+      } else {
+        navigation.navigate("View Forum", { docID: doc });
+      }
+    })
+
+    
+  }
+
   const Item = ({ name }) => (
     <View style={styles.item}>
       {name.map((r) => (
         <TouchableOpacity
           item={r}
-          onPress={() =>
-           // submitSubject()
-            navigation.navigate("View Posts" /*"Groups", {group : item}*/)
-          }
+          onPress={() =>{
+            //createGroupForum(r)
+            {getScreen(r)}
+           // {{emptyForum(r)} ?  navigation.navigate("Add Post") :  navigation.navigate("View Posts")}
+            
+           // navigation.navigate("View Forum" /*"Groups", {group : item}*/)
+          }}
         >
           <Text style={styles.itemName}>{r}</Text>
         </TouchableOpacity>
