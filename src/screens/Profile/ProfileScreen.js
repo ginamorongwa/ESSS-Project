@@ -64,9 +64,9 @@ function ProfileScreen({navigation}) {
     </View>
   );
 
-   function logout (){
+  async function logout (){
     try{
-      auth.signOut();
+      await auth.signOut();
       navigation.navigate("Login")
     }catch(e){
       console.log("Could not logout");
@@ -94,7 +94,8 @@ function ProfileScreen({navigation}) {
           <Button
             style={styles.contactBtn}
             title="Edit"
-            onPress={() => Linking.openURL("mailto:" + userEmail)}
+            onPress={() => navigation.navigate("Edit Profile") }
+                //Linking.openURL("mailto:" + userEmail)}
           />
           <Button
           style={styles.logoutBtn}
