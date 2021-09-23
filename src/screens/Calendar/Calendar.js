@@ -105,7 +105,7 @@ import { DataUtil } from '@syncfusion/ej2-data';
 export class Calendar extends Base {
   constructor() {
     super(...arguments);
-    console.log("constructor...");
+    // console.log("constructor...");
 
     this.state = {
       data: [],
@@ -254,11 +254,11 @@ export class Calendar extends Base {
         .doc(firebase.auth().currentUser.uid)
         .collection("calendarEvents");
     
-    this.activityDataRef = firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .collection("activityData");
+    // this.activityDataRef = firebase
+    //     .firestore()
+    //     .collection("users")
+    //     .doc(firebase.auth().currentUser.uid)
+    //     .collection("activityData");
 
     // this.todoListRef = firebase
     //     .firestore()
@@ -469,26 +469,27 @@ export class Calendar extends Base {
   }
   addData = (data) => {
     // const index = this.scheduleObj.getEventMaxID();//.length > 1 ? data[data.length - 1].index + 1 : 0;
-    console.log("data:", data);
+    // console.log("data:", data);
     if (data !== undefined) addDoc(this.calendarEventsRef, { data }); //, index });
-    console.log("calendarEventsRef: ", this.calendarEventsRef);
+    // console.log("calendarEventsRef: ", this.calendarEventsRef);
   };
   addActivity = (data) => {
-    console.log("data:", data);
-    if (data !== undefined) addDoc(this.activityDataRef, { data }); //, index });
-    console.log("activityDataRef: ", this.activityDataRef);
+    // console.log("data:", data);
+    // if (data !== undefined) addDoc(this.activityDataRef, { data }); //, index });
+    // console.log("activityDataRef: ", this.activityDataRef);
   }
   componentDidMount() {
     const self = this;
-    this.generateEvents().then((result) => this.state.calendarEvents = result)
-    console.log("componentDidMount...", this.state.calendarEvents);
+    // this.generateEvents().then((result) => this.state.calendarEvents = result)
+    this.state.calendarEvents = []
+    // console.log("componentDidMount...", this.state.calendarEvents);
     setTimeout(function() { //Start the timer
       this.setState({render: true}) //After 1 second, set render to true
     }.bind(this), 2000)
     
   }
   generateEvents = async () => {
-    console.log("generateEvents...");
+    // console.log("generateEvents...");
     let eventData = [];
     if (Browser.isIE) {
       Timezone.prototype.offset = (date, timezone) =>
@@ -578,7 +579,7 @@ export class Calendar extends Base {
       });
       id++;
     }
-    console.log("eventdata: ", this.state.data);
+    // console.log("eventdata: ", this.state.data);
     return extend([], [], undefined, true);
     // return extend([], eventData, undefined, true);
   };
@@ -595,7 +596,7 @@ export class Calendar extends Base {
   }
   onImportClick(args) {
     // this.scheduleObj.importICalendar('str');//args.event.target.files[0]);
-    console.log("args:", args);
+    // console.log("args:", args);
     // console.log("args.event.target.files[0]:", args.event.target.files[0]);
     // console.log("this.scheduleObj: ", this.scheduleObj);
 
@@ -634,7 +635,7 @@ export class Calendar extends Base {
 
     var file = args.event.target.files[0];
     var reader = new FileReader();
-    console.log('day', (new Date()).getDay())
+    // console.log('day', (new Date()).getDay())
     let dates = this.getDaysArray(
       new Date(), 
       new Date(new Date().setDate(new Date().getDate() + 10))
@@ -642,7 +643,7 @@ export class Calendar extends Base {
     // 
     let counter = 0;
     for (let f = 0; f < dates.length; f++){
-      console.log(dates[f])
+    //   console.log(dates[f])
       let location =
         location === undefined ? "" : location;
 
@@ -762,7 +763,7 @@ export class Calendar extends Base {
         const directEvents = ical.sync.parseICS(event.target.result);
 
         // loop through events
-        console.log("direct events: ", directEvents);
+        // console.log("direct events: ", directEvents);
         var counter = 0;
         for (const event of Object.values(directEvents)) {
           // console.log('info: ', event.)
@@ -791,16 +792,7 @@ export class Calendar extends Base {
                 let index = event.comment.indexOf('(');
                 addObj.CourseCode = event.comment.substring(index+1, index+9)
                 addObj.dtstamp = event.dtstamp
-                // addObj.EndTime = event.start
-                // console.log(CourseCode)
 
-                // assignments.push(addObj)           
-                // console.log(event)
-                // get course code
-                // let index = event.comment.indexOf('(');
-                // addObj.CourseCode = event.comment.substring(index+1, index+9)
-                
-                
                 addObj.StartTime = new Date(
                     // event.dtstamp
                     new Date(event.start).getFullYear(),
@@ -810,43 +802,16 @@ export class Calendar extends Base {
                     0,
                     0
                   )
-                  // new Date (
-                  //   event.start
-                  // )
+
                   addObj.StartTime.setDate(addObj.StartTime.getDate() - 5);
                   addObj.StartTime.setHours(18)
                   addObj.StartTime.setMinutes(0)
                   addObj.StartTime.setSeconds(0)
-                  // let a = new Date( event.start ).toISOString()
-                  // console.log('iso: ', a)
-                  // 
-                // addObj.startDate = 
-                // new Date(
-                //   new Date(event.dtstamp).getFullYear(),
-                //   new Date(event.dtstamp).getMonth(),
-                //   new Date(event.dtstamp).getDate(),
-                //   18,
-                //   0,
-                //   0
-                // )
+
+                  console.log('addObj.StartTime:', addObj.StartTime)
+
                 addObj.EndTime = addObj.StartTime
                 addObj.EndTime.setHours(20)
-                  // new Date(
-                  //   new Date(event.dtstamp).getFullYear(),
-                  //   new Date(event.dtstamp).getMonth(),
-                  //   new Date(event.dtstamp).getDate(),
-                  //   20,
-                  //   0,
-                  //   0
-                  // )
-                // addObj.EndDate = new Date(
-                //   new Date(event.dtstamp).getFullYear(),
-                //   new Date(event.dtstamp).getMonth(),
-                //   new Date(event.dtstamp).getDate(),
-                //   20,
-                //   0,
-                //   0
-                // )
                 
                 addObj.isAllDay = false
                 addObj.IsReadonly = addObj.EndTime < new Date()
@@ -867,12 +832,27 @@ export class Calendar extends Base {
                   CalendarId: 1,
                 });
 
+                // self.addData({
+                //     Id: addObj.Id,
+                //     Subject: addObj.Subject,
+                //     StartTime: addObj.StartTime,
+                //     EndTime: addObj.EndTime,
+                //     startDate: addObj.StartTime,
+                //     endDate: addObj.EndTime,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     RecurrenceRule: addObj.RecurrenceRule,
+                //     IsReadonly: addObj.EndTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
+
                 // eventData.push(addObj)
                 assignments.push(addObj)
                 // counter--
               } 
               else if (event.summary.includes('Quiz') || event.description.includes('Quiz') || event.comment.includes('Quiz')){
-                console.log('quiz: ',event)
+                // console.log('quiz: ',event)
                 // prepare time
                 // do task time
                 // get date first
@@ -935,6 +915,20 @@ export class Calendar extends Base {
                   CalendarId: 1,
                 });
 
+                // self.addData({
+                //     Id: addObj.Id,
+                //     Subject: 'Prepare for quiz',// addObj.Subject,
+                //     StartTime: prepTime,
+                //     EndTime: addObj.StartTime,
+                //     startDate: prepTime,
+                //     endDate: addObj.StartTime,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     IsReadonly: addObj.StartTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
+
                 // do task 
                 let id = addObj.Id++
                 eventData.push({
@@ -950,6 +944,20 @@ export class Calendar extends Base {
                   Description: addObj.Description,
                   CalendarId: 1,
                 });
+
+                // self.addData({
+                //     Id: id,
+                //     Subject: 'Do quiz',//addObj.Subject,
+                //     StartTime: new Date(addObj.StartTime),
+                //     EndTime: new Date(addObj.EndTime),
+                //     startDate: new Date(addObj.StartTime),
+                //     endDate: new Date(addObj.EndTime),
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     IsReadonly: addObj.EndTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
                 
                 
                 counter++
@@ -962,7 +970,7 @@ export class Calendar extends Base {
               }
               else if (event.summary.includes('Test') || event.description.includes('Test') || event.comment.includes('Test')){
                 tests.push(event);
-                console.log('test: ', event)
+                // console.log('test: ', event)
                 let description = event.description
                 let items = description.split(' ')
                 let index = items.indexOf('available')
@@ -1032,21 +1040,51 @@ export class Calendar extends Base {
                   CalendarId: 1,
                 });
 
+                
+                // self.addData({ //was here
+                //     Id: id,
+                //     Subject: 'Do quiz',//addObj.Subject,
+                //     StartTime: new Date(addObj.StartTime),
+                //     EndTime: new Date(addObj.EndTime),
+                //     startDate: new Date(addObj.StartTime),
+                //     endDate: addObj.EndTime,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     IsReadonly: addObj.EndTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
+
                 // do task 
                 let id = addObj.Id++
                 eventData.push({
-                  Id: id,
-                  Subject: 'Write test',//addObj.Subject,
-                  StartTime: addObj.StartTime,
-                  EndTime: addObj.EndTime,
-                  startDate: addObj.StartTime,
-                  endDate: addObj.EndTime,
-                  Location: addObj.Location,
-                  IsAllDay: false,
-                  IsReadonly: addObj.EndTime < new Date(),
-                  Description: addObj.Description,
-                  CalendarId: 1,
+                    Id: id,
+                    Subject: 'Do quiz',//addObj.Subject,
+                    StartTime: addObj.StartTime,
+                    EndTime: addObj.EndTime,
+                    startDate: addObj.StartTime,
+                    endDate: addObj.EndTime,
+                    Location: addObj.Location,
+                    IsAllDay: false,
+                    IsReadonly: addObj.EndTime < new Date(),
+                    Description: addObj.Description,
+                    CalendarId: 1,
                 });
+
+                
+                // self.addData({
+                //     Id: id,
+                //     Subject: 'Write test',//addObj.Subject,
+                //     StartTime: addObj.StartTime,
+                //     EndTime: addObj.EndTime,
+                //     startDate: addObj.StartTime,
+                //     endDate: addObj.EndTime,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     IsReadonly: addObj.EndTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
                 
                 
                 counter++
@@ -1110,10 +1148,24 @@ export class Calendar extends Base {
                   CalendarId: 1,
                 });
 
+                // self.addData({
+                //     Id: addObj.Id,
+                //     Subject: 'Prepare for prac',// addObj.Subject,
+                //     StartTime: prepTime,
+                //     EndTime: addObj.StartTime,
+                //     startDate: prepTime,
+                //     endDate: addObj.StartTime,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     IsReadonly: addObj.StartTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
+
                 // do task 
                 let id = addObj.Id++
                 eventData.push({
-                  Id: id,
+                    Id: id,
                   Subject: 'Do prac',//addObj.Subject,
                   StartTime: addObj.StartTime,
                   EndTime: addObj.EndTime,
@@ -1125,6 +1177,20 @@ export class Calendar extends Base {
                   Description: addObj.Description,
                   CalendarId: 1,
                 });
+
+                // self.addData({
+                //     Id: id,
+                //   Subject: 'Do prac',//addObj.Subject,
+                //   StartTime: addObj.StartTime,
+                //   EndTime: addObj.EndTime,
+                //   startDate: addObj.StartTime,
+                //   endDate: addObj.EndTime,
+                //   Location: addObj.Location,
+                //   IsAllDay: false,
+                //   IsReadonly: addObj.EndTime < new Date(),
+                //   Description: addObj.Description,
+                //   CalendarId: 1,
+                //   })
                 
                 
                 counter++
@@ -1188,6 +1254,20 @@ export class Calendar extends Base {
                   CalendarId: 1,
                 });
 
+                //                 self.addData({
+                //                     Id: addObj.Id,
+                //                     Subject: 'Prepare for tutorial',// addObj.Subject,
+                //                     StartTime: prepTime,
+                //                     EndTime: addObj.StartTime,
+                //                     startDate: prepTime,
+                //                     endDate: addObj.StartTime,
+                //                     Location: addObj.Location,
+                //                     IsAllDay: false,
+                //                     IsReadonly: addObj.StartTime < new Date(),
+                //                     Description: addObj.Description,
+                //                     CalendarId: 1,
+                //   })
+
                 // do task 
                 let id = addObj.Id++
                 eventData.push({
@@ -1203,6 +1283,20 @@ export class Calendar extends Base {
                   Description: addObj.Description,
                   CalendarId: 1,
                 });
+
+                // self.addData({
+                //     Id: id,
+                //     Subject: 'Do tutorial',//addObj.Subject,
+                //     StartTime: addObj.StartTime,
+                //     EndTime: addObj.EndTime,
+                //     startDate: addObj.StartTime,
+                //     endDate: addObj.EndTime,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     IsReadonly: addObj.EndTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
                 
                 
                 counter++
@@ -1275,6 +1369,21 @@ export class Calendar extends Base {
                   CalendarId: 1,
                 });
 
+                // self.addData({
+                //     Id: addObj.Id,
+                //     Subject: 'Prepare for test',// addObj.Subject,
+                //     StartTime: prepStart,
+                //     EndTime: prepEnd,
+                //     startDate: prepStart,
+                //     endDate: prepEnd,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     RecurrenceRule: "FREQ=DAILY;INTERVAL=1;COUNT=21;",
+                //     IsReadonly: prepStart < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
+
                 // do task 
                 let id = addObj.Id++
                 eventData.push({
@@ -1290,6 +1399,20 @@ export class Calendar extends Base {
                   Description: addObj.Description,
                   CalendarId: 1,
                 });
+
+                // self.addData({
+                //     Id: id,
+                //     Subject: 'Write test',//addObj.Subject,
+                //     StartTime: addObj.StartTime,
+                //     EndTime: addObj.EndTime,
+                //     startDate: addObj.StartTime,
+                //     endDate: addObj.EndTime,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     IsReadonly: addObj.EndTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
                 
                 counter++
 
@@ -1352,6 +1475,20 @@ export class Calendar extends Base {
                   CalendarId: 1,
                 });
 
+                // self.addData({
+                //     Id: addObj.Id,
+                //     Subject: 'Prepare for other task',// addObj.Subject,
+                //     StartTime: prepTime,
+                //     EndTime: addObj.StartTime,
+                //     startDate: prepTime,
+                //     endDate: addObj.StartTime,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     IsReadonly: addObj.StartTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //   })
+
                 // do task 
                 let id = addObj.Id++
                 eventData.push({
@@ -1367,6 +1504,24 @@ export class Calendar extends Base {
                   Description: addObj.Description,
                   CalendarId: 1,
                 });
+
+                console.log('start: ', addObj.StartTime)
+
+                // let testdata = {
+                //     Id: id,
+                //     Subject: 'Do other task',//addObj.Subject,
+                //     StartTime: addObj.StartTime,
+                //     EndTime: addObj.EndTime,
+                //     startDate: addObj.StartTime,
+                //     endDate: addObj.EndTime,
+                //     Location: addObj.Location,
+                //     IsAllDay: false,
+                //     IsReadonly: addObj.EndTime < new Date(),
+                //     Description: addObj.Description,
+                //     CalendarId: 1,
+                //       }
+
+                // self.addData(testdata)
                 
                 
                 counter++
@@ -1469,13 +1624,27 @@ export class Calendar extends Base {
                   Description: event.summary,
                   CalendarId: 1,
                 });
+
+                // self.addData({
+                //     Id: self.scheduleObj.getEventMaxID() + counter++, //event.uid;
+                //     Subject: event.comment,
+                //     StartTime: StartTime,
+                //     EndTime: EndTime,
+                //     startDate: StartTime,
+                //     endDate: EndTime,
+                //     Location: location,
+                //     IsAllDay: false,
+                //     IsReadonly: EndTime < new Date(),
+                //     Description: event.summary,
+                //     CalendarId: 1,
+                //   })
               }
             }
           }
         }
-        console.log('assignments: ', assignments)
+        // console.log('assignments: ', assignments)
 
-        console.log("eventdata: ", eventData);
+        // console.log("eventdata: ", eventData);
         let overviewEvents = extend([], eventData, undefined, true);
         
         for (let event of overviewEvents) {
@@ -1484,17 +1653,19 @@ export class Calendar extends Base {
             "UTC",
             currentTimezone
           );
+          event.startDate = event.StartTime;
           event.EndTime = timezone.convert(
             event.EndTime,
             "UTC",
             currentTimezone
           );
+          event.endDate = event.EndDate;
           self.scheduleObj.addEvent(event)
-          console.log('event: ', event)
-          // self.addData(event);
-          // self.state.calendarEvents.push(event);
+        //   console.log('event: ', event)
+        //   self.addData(event);
+        //   self.state.calendarEvents.push(event);
         } 
-        console.log(overviewEvents)
+        // console.log(overviewEvents)
       };
     } else {
       console.log("something went wrong! Make sure your file is a .ics file");
@@ -1673,7 +1844,7 @@ export class Calendar extends Base {
         <div className="icon-child" style={{ textAlign: "center" }}>
           <SwitchComponent
             id="grouping"
-            checked={true}
+            checked={false}
             change={(args) => {
               this.scheduleObj.group.resources = args.checked
                 ? ["Calendars"]
@@ -1809,19 +1980,19 @@ export class Calendar extends Base {
         : this.notesObj.value;
       addObj.CalendarId = this.eventTypeObj.value;
       addObj.Location = '';
-      console.log("addObj: ", addObj);
+    //   console.log("addObj: ", addObj);
       // console.log("scheduleObj: ", this.scheduleObj);
       return addObj;
     };
     if (e.target.id === "add") {
       const addObj = getSlotData();
       this.scheduleObj.addEvent(addObj);
-      console.log('aaaaaaaaaaaaaa: ', addObj);
+    //   console.log('aaaaaaaaaaaaaa: ', addObj);
       // console.log("yyyyyyyyyyy ", this.scheduleObj);
       // const data = addObj;
-      // this.addData(addObj);
-      // this.state.calendarEvents.push(addObj)
-      // console.log("ddddddd: ", addObj);
+      this.addData(addObj);
+      this.state.calendarEvents.push(addObj)
+      console.log("ddddddd: ", addObj);
     } else if (e.target.id === "delete") {
       const eventDetails = this.scheduleObj.activeEventData.event;
       let currentAction = "Delete";
@@ -1836,9 +2007,9 @@ export class Calendar extends Base {
         ? getSlotData()
         : this.scheduleObj.activeEventData.event;
       let currentAction = isCellPopup ? "Add" : "Save";
-      console.log(getSlotData)
+    //   console.log(getSlotData)
       let a = isCellPopup ? "" : eventDetails;
-      console.log("details: ", a);
+    //   console.log("details: ", a);
       if (eventDetails.RecurrenceRule) {
         currentAction = "EditOccurrence";
       }
@@ -2000,11 +2171,11 @@ export class Calendar extends Base {
 
 floatFocus(args) {
     args.target.parentElement.classList.add('e-input-focus');
-    console.log('focus', args)
+    // console.log('focus', args)
 }
 floatBlur(args) {
     args.target.parentElement.classList.remove('e-input-focus');
-    console.log('blur', args)
+    // console.log('blur', args)
 }
 onSubmitClick() {
 
@@ -2030,14 +2201,14 @@ buttonClick() {
 }
 dialogClose() {
     this.buttonEle.style.display = "block";
-    console.log('dialogClose', this)
+    // console.log('dialogClose', this)
 }
 dialogOpen() {
     this.buttonEle.style.display = "none";
-    console.log('dialogOpen', this)
+    // console.log('dialogOpen', this)
 }
 onChange2() {
-    console.log(this.listObj)
+    // console.log(this.listObj)
     if (this.listObj) this.itemData = this.listObj.itemData;
     // if (this.fields.value !== undefined) this.fields.value = (this.listObj.value === null) ? this.fields.value : this.listObj.value.toString();
     // console.log(this.fields) 
@@ -2052,29 +2223,29 @@ onChange(args) {
     // let outputElement = document.querySelector('#rule-output');
     // outputElement.innerText = args.value;
     this.rule = args.value;
-    console.log('args: ', args)
+    // console.log('args: ', args)
 }
 onChange3(args) { 
     // let outputElement = document.querySelector('#rule-output');
     // outputElement.innerText = args.value;
     // this.rule = args.value;
-    console.log('args: ', args)
+    // console.log('args: ', args)
     this.dateValueStart = args.value;
-    console.log('this.dateValueStart: ', this.dateValueStart)
+    // console.log('this.dateValueStart: ', this.dateValueStart)
 }
 onChange4(args) { 
     // let outputElement = document.querySelector('#rule-output');
     // outputElement.innerText = args.value;
     // this.rule = args.value;
-    console.log('args: ', args)
+    // console.log('args: ', args)
     this.dateValueEnd = args.value;
-    console.log('this.dateValueEnd: ', this.dateValueEnd)
+    // console.log('this.dateValueEnd: ', this.dateValueEnd)
 }
 dataSourceChanged(args){
-  console.log('data change? ',args)
+//   console.log('data change? ',args)
 }
 dialogTemplate(props) {
-    console.log('props: ', props)
+    // console.log('props: ', props)
     // this.props.activityType = this.activityType;
     return (<Form {...props}/>);
 }
@@ -2110,7 +2281,7 @@ rendereComplete() {
     // initialize the form validator
     this.formObject = new FormValidator('#formId', options);
     this.onChange2();
-    console.log('back')
+    // console.log('back')
 }
 content0 () {
     return(<View>
@@ -2171,8 +2342,8 @@ table () {
     )
 }
 onChangeForm(args) {
-    console.log('aggg',args)
-    console.log(this.scheduleObj.getEventMaxID())
+    // console.log('aggg',args)
+    // console.log(this.scheduleObj.getEventMaxID())
     // this.ActivityID = 
     // console.log('lets cav:', args.target.name, args.target.value)
     // let key = args.target.name;
@@ -2206,7 +2377,7 @@ onChangeFom1(args){
 
 
 SubmitForm(args){
-  console.log(this)
+//   console.log(this)
 
   let StartTime = new Date(
     this.StartDate
@@ -2251,49 +2422,49 @@ if (this.tableObj !== undefined){
 }else{
   this.state.activityData.push(newData)
 }
-  console.log(newData)
-  console.log('activityData:', this.state.activityData)
-  console.log('dreeeeaaaam',this.tableObj)
+//   console.log(newData)
+//   console.log('activityData:', this.state.activityData)
+//   console.log('dreeeeaaaam',this.tableObj)
   
   this.clearForm(true)
 }
 
 onChangeActivity () {
   this.Activity = this.listObj.text;
-  console.log(this.listObj)
+//   console.log(this.listObj)
 }
 onChangeCourseCode (args) {
   this.CourseCode = args.target.value// this.CourseCodeObj.value;
-  console.log(args)
+//   console.log(args)
 }
 onChangeLocation () {
   this.Location = this.LocationObj.value;
-  console.log(this.LocationObj)
+//   console.log(this.LocationObj)
 }
 onChangeStartDate () {
   this.StartDate = this.datetimepickerInstanceStart.currentDate;
-  console.log(this.datetimepickerInstanceStart)
+//   console.log(this.datetimepickerInstanceStart)
 }
 onChangeEndDate () {
-  console.log(this.datetimepickerInstanceEnd)
+//   console.log(this.datetimepickerInstanceEnd)
   this.EndDate = this.datetimepickerInstanceEnd.currentDate;
 }
 onChangeRecurrence (args) {
-  console.log(args)
-  console.log(this.recObject)
+//   console.log(args)
+//   console.log(this.recObject)
   this.Recurrence = this.recObject.getRecurrenceRule()
   // this.Recurrence = args.value;
 }
 onChangeHours () {
-  console.log(this.hourObj.value)
+//   console.log(this.hourObj.value)
   this.Hours = this.hourObj.value;
 }
 onChangeMinutes () {
-  console.log(this.minuteObj)
+//   console.log(this.minuteObj)
   this.Minutes = this.minuteObj.value;
 }
 onChangeComments () {
-  console.log(this.commentObject.value)
+//   console.log(this.commentObject.value)
   this.Comments += this.commentObject.value;
   this.commentObject.value = this.Comments
 }
@@ -2586,7 +2757,7 @@ form () {
                                 id="submit-btn" 
                                 className="samplebtn e-control e-btn e-primary e-submit-btn" 
                                 // onClick={this.onSubmitClick = this.onSubmitClick.bind(this)} 
-                                onClick={console.log('iiiiiiiiiiiii')}
+                                // onClick={console.log('iiiiiiiiiiiii')}
                                 // type="submit" 
                                 // data-ripple="true"
                             >Add</button>
@@ -3373,7 +3544,7 @@ content4() {
                               />
                             </div>
                             <div className="right-panel">
-                              <div className="control-panel">
+                              {/* <div className="control-panel">
                                 <ButtonComponent
                                   id="printBtn"
                                   cssClass="title-bar-btn"
@@ -3389,8 +3560,8 @@ content4() {
                                   onClick={this.addTestExam.bind(this)}
                                   content="Add Lecture"
                                 />
-                              </div>
-                              <div className="control-panel">
+                              </div> */}
+                              {/* <div className="control-panel">
                                 <ButtonComponent
                                   id="printBtn"
                                   cssClass="title-bar-btn"
@@ -3398,7 +3569,7 @@ content4() {
                                   onClick={this.onPrint.bind(this)}
                                   content="Print"
                                 />
-                              </div>
+                              </div> */}
                               <div
                                 className="control-panel"
                                 style={{
@@ -4077,881 +4248,3 @@ content4() {
   }
 }
 export default Calendar;
-
-//  render() {
-
-//     console.log("render...");
-//     // var data = this.generateEvents()
-//     let data;
-
-//     console.log("data before", data);
-//     this.generateEvents().then((result) => {
-//       console.log("date: ", new Date());
-//       this.data = result;
-//       data = result;
-//       // for (let v = 0; v < result.length; v++) {
-//       //   // this.scheduleObj.addEvent(result[v]);
-//       //   // console.log(this.scheduleObj.addEvent)
-//       // }
-//       console.log("inside promise: ", this);
-//       console.log("result, date: ", result, new Date());
-//       console.log("hsssssjs", this.data);
-//       console.log("hsssssjs", data);
-//       console.log("out promise: ", this);
-//       // while (true){}
-//       // console.log('after while true')
-//     });
-//     console.log("data after", data);
-//     // this.generateEvents().then((newData) => data = newData)
-//     console.log("render...", data);
-//     /**let generateEvents = () => {
-//       let eventData = [];
-//       let eventSubjects = [
-//         "Bering Sea Gold",
-//         "Technology",
-//         "Maintenance",
-//         "Meeting",
-//         "Travelling",
-//         "Annual Conference",
-//         "Birthday Celebration",
-//         "Farewell Celebration",
-//         "Wedding Aniversary",
-//         "Alaska: The Last Frontier",
-//         "Deadest Catch",
-//         "Sports Day",
-//         "MoonShiners",
-//         "Close Encounters",
-//         "HighWay Thru Hell",
-//         "Daily Planet",
-//         "Cash Cab",
-//         "Basketball Practice",
-//         "Rugby Match",
-//         "Guitar Class",
-//         "Music Lessons",
-//         "Doctor checkup",
-//         "Brazil - Mexico",
-//         "Opening ceremony",
-//         "Final presentation",
-//       ];
-//       let weekDate = new Date(
-//         new Date().setDate(new Date().getDate() - new Date().getDay())
-//       );
-//       let startDate = new Date(
-//         weekDate.getFullYear(),
-//         weekDate.getMonth(),
-//         weekDate.getDate(),
-//         10,
-//         0
-//       );
-//       let endDate = new Date(
-//         weekDate.getFullYear(),
-//         weekDate.getMonth(),
-//         weekDate.getDate(),
-//         11,
-//         30
-//       );
-//       eventData.push({
-//         Id: 1,
-//         Subject: eventSubjects[Math.floor(Math.random() * (24 - 0 + 1) + 0)],
-//         StartTime: startDate,
-//         EndTime: endDate,
-//         Location: "",
-//         Description: "Event Scheduled",
-//         RecurrenceRule: "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1;COUNT=10;",
-//         IsAllDay: false,
-//         IsReadonly: false,
-//         CalendarId: 1,
-//       });
-      
-//       // let data = {
-//       //   Id: 1,
-//       //   Subject: eventSubjects[Math.floor(Math.random() * (24 - 0 + 1) + 0)],
-//       //   StartTime: startDate,
-//       //   EndTime: endDate,
-//       //   Location: "",
-//       //   Description: "Event Scheduled",
-//       //   RecurrenceRule: "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1;COUNT=10;",
-//       //   IsAllDay: false,
-//       //   IsReadonly: false,
-//       //   CalendarId: 1,
-//       // }
-//       // this.addData(data, 1);
-//       console.log(this.state.hi)
-//       for (let a = 0, id = 2; a < 500; a++) {
-//         let month = Math.floor(Math.random() * (11 - 0 + 1) + 0);
-//         let date = Math.floor(Math.random() * (28 - 1 + 1) + 1);
-//         let hour = Math.floor(Math.random() * (23 - 0 + 1) + 0);
-//         let minutes = Math.floor(Math.random() * (59 - 0 + 1) + 0);
-//         let start = new Date(
-//           new Date().getFullYear(),
-//           month,
-//           date,
-//           hour,
-//           minutes,
-//           0
-//         );
-//         let end = new Date(start.getTime());
-//         end.setHours(end.getHours() + 2);
-//         let startDate = new Date(start.getTime());
-//         let endDate = new Date(end.getTime());
-//         eventData.push({
-//           Id: id,
-//           Subject: eventSubjects[Math.floor(Math.random() * (24 - 0 + 1) + 0)],
-//           StartTime: startDate,
-//           EndTime: endDate,
-//           Location: "",
-//           Description: "Event Scheduled",
-//           IsAllDay: id % 10 === 0,
-//           IsReadonly: endDate < new Date(),
-//           CalendarId: (a % 4) + 1,
-//         });
-//         // data = {
-//         //   Id: id,
-//         //   Subject: eventSubjects[Math.floor(Math.random() * (24 - 0 + 1) + 0)],
-//         //   StartTime: startDate,
-//         //   EndTime: endDate,
-//         //   Location: "",
-//         //   Description: "Event Scheduled",
-//         //   IsAllDay: id % 10 === 0,
-//         //   IsReadonly: endDate < new Date(),
-//         //   CalendarId: (a % 4) + 1,
-//         // }
-//         // this.addData(data, id);
-//         id++;
-//       }
-//       console.log('eventdata: ', this.state.data)
-      
-
-//       if (Browser.isIE) {
-//         Timezone.prototype.offset = (date, timezone) =>
-//           tz.zone(timezone).utcOffset(date.getTime());
-//       }
-//       console.log('eventdata: ', eventData)
-//       let overviewEvents = extend([], eventData, undefined, true);
-//       let timezone = new Timezone();
-//       let currentTimezone = timezone.getLocalTimezoneName();
-//       for (let event of overviewEvents) {
-//         event.StartTime = timezone.convert(
-//           event.StartTime,
-//           "UTC",
-//           currentTimezone
-//         );
-//         event.EndTime = timezone.convert(event.EndTime, "UTC", currentTimezone);
-//       }
-//       return overviewEvents;
-//     };**/
-//     return (
-//       <div className="material body">
-//         <div id="sample">
-//           <div className="schedule-control-section">
-//             <div className="col-lg-12 control-section">
-//               <div className="content-wrapper">
-//                 <div className="schedule-overview">
-//                   <div className="overview-header">
-//                     <div className="overview-titlebar">
-//                       <div className="left-panel">
-//                         <div
-//                           className="schedule-overview-title"
-//                           style={{ border: "1px solid transparent" }}
-//                         >
-//                           Varsity Connect
-//                         </div>
-//                       </div>
-//                       <div className="center-panel">
-//                         <ButtonComponent
-//                           id="timezoneBtn"
-//                           cssClass="title-bar-btn"
-//                           iconCss="e-icons e-schedule-timezone"
-//                           disabled={true}
-//                           content="UTC"
-//                         />
-//                         <ButtonComponent
-//                           id="timeBtn"
-//                           cssClass="title-bar-btn"
-//                           iconCss="e-icons e-schedule-clock"
-//                           disabled={true}
-//                           content="Time"
-//                         />
-//                       </div>
-//                       <div className="right-panel">
-//                         <div className="control-panel">
-//                           <ButtonComponent
-//                             id="printBtn"
-//                             cssClass="title-bar-btn"
-//                             // iconCss="e-icons e-schedule-print"
-//                             onClick={this.addTestExam.bind(this)}
-//                             content="Add Text/Exam"
-//                           />
-//                         </div>
-//                         {/* <div className="control-panel">
-//                           <ButtonComponent
-//                             id="printBtn"
-//                             cssClass="title-bar-btn"
-//                             iconCss="e-icons e-schedule-print"
-//                             onClick={this.onPrint.bind(this)}
-//                             content="Print"
-//                           />
-//                         </div> */}
-//                         <div
-//                           className="control-panel"
-//                           style={{
-//                             display: "inline-flex",
-//                             paddingLeft: "15px",
-//                           }}
-//                         >
-//                           <div
-//                             className="e-icons e-schedule-import e-btn-icon e-icon-left"
-//                             style={{ lineHeight: "40px" }}
-//                           ></div>
-//                           <UploaderComponent
-//                             id="fileUpload"
-//                             type="file"
-//                             allowedExtensions=".ics"
-//                             cssClass="calendar-import"
-//                             buttons={{ browse: "Import" }}
-//                             multiple={false}
-//                             showFileList={false}
-//                             selected={this.onImportClick.bind(this)}
-//                           />
-//                         </div>
-//                         <div className="control-panel">
-//                           <DropDownButtonComponent
-//                             id="exporting"
-//                             content="Export"
-//                             items={this.exportItems}
-//                             select={this.onExportClick.bind(this)}
-//                           />
-//                         </div>
-//                       </div>
-//                     </div>
-//                   </div>
-//                   <div className="overview-toolbar">
-//                     <div style={{ height: "70px", width: "calc(100% - 90px)" }}>
-//                       <ToolbarComponent
-//                         id="toolbar_options"
-//                         width="100%"
-//                         height={70}
-//                         overflowMode="Scrollable"
-//                         scrollStep={100}
-//                         created={() =>
-//                           setInterval(() => {
-//                             this.updateLiveTime();
-//                           }, 1000)
-//                         }
-//                         clicked={this.onToolbarItemClicked.bind(this)}
-//                       >
-//                         <ItemsDirective>
-//                           <ItemDirective
-//                             prefixIcon="e-icons e-schedule-add-event"
-//                             tooltipText="New Event"
-//                             text="New Event"
-//                           />
-//                           <ItemDirective
-//                             prefixIcon="e-icons e-schedule-add-recurrence-event"
-//                             tooltipText="New Recurring Event"
-//                             text="New Recurring Event"
-//                           />
-//                           <ItemDirective type="Separator" />
-//                           <ItemDirective
-//                             prefixIcon="e-icons e-schedule-day-view"
-//                             tooltipText="Day"
-//                             text="Day"
-//                           />
-//                           <ItemDirective
-//                             prefixIcon="e-icons e-schedule-week-view"
-//                             tooltipText="Week"
-//                             text="Week"
-//                           />
-//                           <ItemDirective
-//                             prefixIcon="e-icons e-schedule-workweek-view"
-//                             tooltipText="WorkWeek"
-//                             text="WorkWeek"
-//                           />
-//                           <ItemDirective
-//                             prefixIcon="e-icons e-schedule-month-view"
-//                             tooltipText="Month"
-//                             text="Month"
-//                           />
-//                           <ItemDirective
-//                             prefixIcon="e-icons e-schedule-year-view"
-//                             tooltipText="Year"
-//                             text="Year"
-//                           />
-//                           <ItemDirective
-//                             prefixIcon="e-icons e-schedule-agenda-view"
-//                             tooltipText="Agenda"
-//                             text="Agenda"
-//                           />
-//                           <ItemDirective
-//                             tooltipText="Timeline Views"
-//                             text="Timeline Views"
-//                             template={this.timelineTemplate.bind(this)}
-//                           />
-//                           <ItemDirective type="Separator" />
-//                           <ItemDirective
-//                             tooltipText="Grouping"
-//                             text="Grouping"
-//                             template={this.groupTemplate.bind(this)}
-//                           />
-//                           <ItemDirective
-//                             tooltipText="Gridlines"
-//                             text="Gridlines"
-//                             template={this.gridlineTemplate.bind(this)}
-//                           />
-//                           <ItemDirective
-//                             tooltipText="Row Auto Height"
-//                             text="Row Auto Height"
-//                             template={this.autoHeightTemplate.bind(this)}
-//                           />
-//                           <ItemDirective
-//                             tooltipText="Tooltip"
-//                             text="Tooltip"
-//                             template={this.tooltipTemplate.bind(this)}
-//                           />
-//                           <ItemDirective
-//                             tooltipText="Allow Multi Drag"
-//                             text="Allow Multi Drag"
-//                             template={this.multiDragTemplate.bind(this)}
-//                           />
-//                         </ItemsDirective>
-//                       </ToolbarComponent>
-//                     </div>
-//                     <div style={{ height: "70px", width: "90px" }}>
-//                       <ButtonComponent
-//                         id="settingsBtn"
-//                         cssClass="overview-toolbar-settings"
-//                         iconCss="e-icons e-schedule-toolbar-settings"
-//                         iconPosition="Top"
-//                         content="Settings"
-//                         onClick={() => {
-//                           let settingsPanel = document.querySelector(
-//                             ".overview-content .right-panel"
-//                           );
-//                           if (settingsPanel.classList.contains("hide")) {
-//                             removeClass([settingsPanel], "hide");
-//                           } else {
-//                             addClass([settingsPanel], "hide");
-//                           }
-//                           this.scheduleObj.refreshEvents();
-//                         }}
-//                       />
-//                     </div>
-//                   </div>
-//                   <div className="overview-content">
-//                     <div className="left-panel">
-//                       <div className="overview-scheduler">
-//                         <ScheduleComponent
-//                           id="scheduler"
-//                           cssClass="schedule-overview"
-//                           ref={(schedule) => (this.scheduleObj = schedule)}
-//                           width="100%"
-//                           height="100%"
-//                           group={{ resources: ["Calendars"] }}
-//                           timezone="UTC"
-//                           eventSettings={{
-//                             dataSource: data,
-//                           }} //this.state.calendarEvents }}//generateEvents() }}//
-//                           dateHeaderTemplate={this.dateHeaderTemplate.bind(
-//                             this
-//                           )}
-//                           quickInfoTemplates={{
-//                             header: this.headerTemplate.bind(this),
-//                             content: this.contentTemplate.bind(this),
-//                             footer: this.footerTemplate.bind(this),
-//                           }}
-//                         >
-//                           <ResourcesDirective>
-//                             <ResourceDirective
-//                               field="CalendarId"
-//                               title="Calendars"
-//                               name="Calendars"
-//                               dataSource={this.calendarCollections}
-//                               query={new Query().where(
-//                                 "CalendarId",
-//                                 "equal",
-//                                 1
-//                               )}
-//                               textField="CalendarText"
-//                               idField="CalendarId"
-//                               colorField="CalendarColor"
-//                             ></ResourceDirective>
-//                           </ResourcesDirective>
-//                           <ViewsDirective>
-//                             <ViewDirective option="Day" />
-//                             <ViewDirective option="Week" />
-//                             <ViewDirective option="WorkWeek" />
-//                             <ViewDirective option="Month" />
-//                             <ViewDirective option="Year" />
-//                             <ViewDirective option="Agenda" />
-//                             <ViewDirective option="TimelineDay" />
-//                             <ViewDirective option="TimelineWeek" />
-//                             <ViewDirective option="TimelineWorkWeek" />
-//                             <ViewDirective option="TimelineMonth" />
-//                             <ViewDirective option="TimelineYear" />
-//                           </ViewsDirective>
-//                           <Inject
-//                             services={[
-//                               Day,
-//                               Week,
-//                               WorkWeek,
-//                               Month,
-//                               Year,
-//                               Agenda,
-//                               TimelineViews,
-//                               TimelineMonth,
-//                               TimelineYear,
-//                               DragAndDrop,
-//                               Resize,
-//                               Print,
-//                               ExcelExport,
-//                               ICalendarImport,
-//                               ICalendarExport,
-//                             ]}
-//                           />
-//                         </ScheduleComponent>
-//                         <ContextMenuComponent
-//                           id="ContextMenu"
-//                           cssClass="schedule-context-menu"
-//                           ref={(menu) => (this.contextMenuObj = menu)}
-//                           target=".e-schedule"
-//                           items={this.contextMenuItems}
-//                           beforeOpen={(args) => {
-//                             let newEventElement =
-//                               document.querySelector(".e-new-event");
-//                             if (newEventElement) {
-//                               remove(newEventElement);
-//                               removeClass(
-//                                 [document.querySelector(".e-selected-cell")],
-//                                 "e-selected-cell"
-//                               );
-//                             }
-//                             let targetElement = args.event.target;
-//                             if (closest(targetElement, ".e-contextmenu")) {
-//                               return;
-//                             }
-//                             this.selectedTarget = closest(
-//                               targetElement,
-//                               ".e-appointment,.e-work-cells,.e-vertical-view .e-date-header-wrap .e-all-day-cells,.e-vertical-view .e-date-header-wrap .e-header-cells"
-//                             );
-//                             if (isNullOrUndefined(this.selectedTarget)) {
-//                               args.cancel = true;
-//                               return;
-//                             }
-//                             if (
-//                               this.selectedTarget.classList.contains(
-//                                 "e-appointment"
-//                               )
-//                             ) {
-//                               let eventObj = this.scheduleObj.getEventDetails(
-//                                 this.selectedTarget
-//                               );
-//                               if (eventObj.RecurrenceRule) {
-//                                 this.contextMenuObj.showItems(
-//                                   [
-//                                     "EditRecurrenceEvent",
-//                                     "DeleteRecurrenceEvent",
-//                                   ],
-//                                   true
-//                                 );
-//                                 this.contextMenuObj.hideItems(
-//                                   [
-//                                     "Add",
-//                                     "AddRecurrence",
-//                                     "Today",
-//                                     "Save",
-//                                     "Delete",
-//                                   ],
-//                                   true
-//                                 );
-//                               } else {
-//                                 this.contextMenuObj.showItems(
-//                                   ["Save", "Delete"],
-//                                   true
-//                                 );
-//                                 this.contextMenuObj.hideItems(
-//                                   [
-//                                     "Add",
-//                                     "AddRecurrence",
-//                                     "Today",
-//                                     "EditRecurrenceEvent",
-//                                     "DeleteRecurrenceEvent",
-//                                   ],
-//                                   true
-//                                 );
-//                               }
-//                               return;
-//                             }
-//                             this.contextMenuObj.hideItems(
-//                               [
-//                                 "Save",
-//                                 "Delete",
-//                                 "EditRecurrenceEvent",
-//                                 "DeleteRecurrenceEvent",
-//                               ],
-//                               true
-//                             );
-//                             this.contextMenuObj.showItems(
-//                               ["Add", "AddRecurrence", "Today"],
-//                               true
-//                             );
-//                           }}
-//                           select={(args) => {
-//                             let selectedMenuItem = args.item.id;
-//                             let eventObj = {};
-//                             if (
-//                               this.selectedTarget &&
-//                               this.selectedTarget.classList.contains(
-//                                 "e-appointment"
-//                               )
-//                             ) {
-//                               eventObj = this.scheduleObj.getEventDetails(
-//                                 this.selectedTarget
-//                               );
-//                             }
-//                             switch (selectedMenuItem) {
-//                               case "Today":
-//                                 this.scheduleObj.selectedDate = new Date();
-//                                 break;
-//                               case "Add":
-//                               case "AddRecurrence":
-//                                 let selectedCells =
-//                                   this.scheduleObj.getSelectedElements();
-//                                 let activeCellsData =
-//                                   this.scheduleObj.getCellDetails(
-//                                     selectedCells.length > 0
-//                                       ? selectedCells
-//                                       : this.selectedTarget
-//                                   );
-//                                 if (selectedMenuItem === "Add") {
-//                                   this.scheduleObj.openEditor(
-//                                     activeCellsData,
-//                                     "Add"
-//                                   );
-//                                 } else {
-//                                   this.scheduleObj.openEditor(
-//                                     activeCellsData,
-//                                     "Add",
-//                                     false,
-//                                     1
-//                                   );
-//                                 }
-//                                 break;
-//                               case "Save":
-//                               case "EditOccurrence":
-//                               case "EditSeries":
-//                                 if (selectedMenuItem === "EditSeries") {
-//                                   let query = new Query().where(
-//                                     this.scheduleObj.eventFields.id,
-//                                     "equal",
-//                                     eventObj.RecurrenceID
-//                                   );
-//                                   eventObj = new DataManager(
-//                                     this.scheduleObj.eventsData
-//                                   ).executeLocal(query)[0];
-//                                 }
-//                                 this.scheduleObj.openEditor(
-//                                   eventObj,
-//                                   selectedMenuItem
-//                                 );
-//                                 break;
-//                               case "Delete":
-//                                 this.scheduleObj.deleteEvent(eventObj);
-//                                 break;
-//                               case "DeleteOccurrence":
-//                               case "DeleteSeries":
-//                                 this.scheduleObj.deleteEvent(
-//                                   eventObj,
-//                                   selectedMenuItem
-//                                 );
-//                                 break;
-//                             }
-//                           }}
-//                         ></ContextMenuComponent>
-//                       </div>
-//                     </div>
-//                     <div className="right-panel hide">
-//                       <div className="control-panel e-css">
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               First Day of Week
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <DropDownListComponent
-//                               id="weekFirstDay"
-//                               width={170}
-//                               dataSource={this.weekDays}
-//                               fields={{ text: "text", value: "value" }}
-//                               value={0}
-//                               popupHeight={150}
-//                               change={(args) => {
-//                                 this.scheduleObj.firstDayOfWeek = args.value;
-//                               }}
-//                             />
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Work week
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <MultiSelectComponent
-//                               id="workWeekDays"
-//                               cssClass="schedule-workweek"
-//                               width={170}
-//                               dataSource={this.weekDays}
-//                               mode="CheckBox"
-//                               fields={{ text: "text", value: "value" }}
-//                               enableSelectionOrder={false}
-//                               showClearButton={false}
-//                               showDropDownIcon={true}
-//                               popupHeight={150}
-//                               value={[1, 2, 3, 4, 5]}
-//                               change={(args) =>
-//                                 (this.scheduleObj.workDays = args.value)
-//                               }
-//                             >
-//                               <Inject services={[CheckBoxSelection]} />
-//                             </MultiSelectComponent>
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Resources
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <MultiSelectComponent
-//                               id="resources"
-//                               cssClass="schedule-resource"
-//                               width={170}
-//                               dataSource={this.calendarCollections}
-//                               mode="CheckBox"
-//                               fields={{
-//                                 text: "CalendarText",
-//                                 value: "CalendarId",
-//                               }}
-//                               enableSelectionOrder={false}
-//                               showClearButton={false}
-//                               showDropDownIcon={true}
-//                               popupHeight={150}
-//                               value={[1]}
-//                               change={this.onResourceChange.bind(this)}
-//                             >
-//                               <Inject services={[CheckBoxSelection]} />
-//                             </MultiSelectComponent>
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Timezone
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <DropDownListComponent
-//                               id="timezone"
-//                               width={170}
-//                               dataSource={this.timezoneData}
-//                               fields={{ text: "text", value: "value" }}
-//                               value="Etc/GMT"
-//                               popupHeight={150}
-//                               change={(args) => {
-//                                 this.scheduleObj.timezone = args.value;
-//                                 this.updateLiveTime();
-//                                 document.querySelector(
-//                                   ".schedule-overview #timezoneBtn"
-//                                 ).innerHTML =
-//                                   '<span class="e-btn-icon e-icons e-schedule-timezone e-icon-left"></span>' +
-//                                   args.itemData.text;
-//                               }}
-//                             />
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Day Start Hour
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <TimePickerComponent
-//                               id="dayStartHour"
-//                               width={170}
-//                               showClearButton={false}
-//                               value={new Date(new Date().setHours(0, 0, 0))}
-//                               change={(args) =>
-//                                 (this.scheduleObj.startHour =
-//                                   this.intl.formatDate(args.value, {
-//                                     skeleton: "Hm",
-//                                   }))
-//                               }
-//                             />
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Day End Hour
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <TimePickerComponent
-//                               id="dayEndHour"
-//                               width={170}
-//                               showClearButton={false}
-//                               value={new Date(new Date().setHours(23, 59, 59))}
-//                               change={(args) =>
-//                                 (this.scheduleObj.endHour =
-//                                   this.intl.formatDate(args.value, {
-//                                     skeleton: "Hm",
-//                                   }))
-//                               }
-//                             />
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Work Start Hour
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <TimePickerComponent
-//                               id="workHourStart"
-//                               width={170}
-//                               showClearButton={false}
-//                               value={new Date(new Date().setHours(9, 0, 0))}
-//                               change={(args) =>
-//                                 (this.scheduleObj.workHours.start =
-//                                   this.intl.formatDate(args.value, {
-//                                     skeleton: "Hm",
-//                                   }))
-//                               }
-//                             />
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Work End Hour
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <TimePickerComponent
-//                               id="workHourEnd"
-//                               width={170}
-//                               showClearButton={false}
-//                               value={new Date(new Date().setHours(18, 0, 0))}
-//                               change={(args) =>
-//                                 (this.scheduleObj.workHours.end =
-//                                   this.intl.formatDate(args.value, {
-//                                     skeleton: "Hm",
-//                                   }))
-//                               }
-//                             />
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Slot Duration
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <DropDownListComponent
-//                               id="slotDuration"
-//                               width={170}
-//                               dataSource={this.majorSlotData}
-//                               fields={{ text: "Name", value: "Value" }}
-//                               value={60}
-//                               popupHeight={150}
-//                               change={(args) => {
-//                                 this.scheduleObj.timeScale.interval =
-//                                   args.value;
-//                               }}
-//                             />
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Slot Interval
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <DropDownListComponent
-//                               id="slotInterval"
-//                               width={170}
-//                               dataSource={this.minorSlotData}
-//                               value={2}
-//                               popupHeight={150}
-//                               change={(args) => {
-//                                 this.scheduleObj.timeScale.slotCount =
-//                                   args.value;
-//                               }}
-//                             />
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Time Format
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <DropDownListComponent
-//                               id="timeFormat"
-//                               width={170}
-//                               dataSource={this.timeFormatData}
-//                               fields={{ text: "Name", value: "Value" }}
-//                               value={"hh:mm a"}
-//                               popupHeight={150}
-//                               change={(args) => {
-//                                 this.scheduleObj.timeFormat = args.value;
-//                               }}
-//                             />
-//                           </div>
-//                         </div>
-//                         <div className="col-row">
-//                           <div className="col-left">
-//                             <label style={{ lineHeight: "34px", margin: "0" }}>
-//                               Week Numbers
-//                             </label>
-//                           </div>
-//                           <div className="col-right">
-//                             <DropDownListComponent
-//                               id="weekNumber"
-//                               width={170}
-//                               dataSource={this.weekNumberData}
-//                               fields={{ text: "Name", value: "Value" }}
-//                               value={"Off"}
-//                               popupHeight={150}
-//                               change={(args) => {
-//                                 if (args.value == "Off") {
-//                                   this.scheduleObj.showWeekNumber = false;
-//                                 } else {
-//                                   this.scheduleObj.showWeekNumber = true;
-//                                   this.scheduleObj.weekRule = args.value;
-//                                 }
-//                               }}
-//                             />
-//                           </div>
-//                         </div>
-//                       </div>
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-// export default Calendar;

@@ -57,7 +57,7 @@ function ForumLandingPage({navigation}) {
 
   const Item = ({ name }) => (
     <View style={styles.item}>
-      {name.map((r) => (
+      {/* {name.map((r) => (
         <TouchableOpacity
           item={r}
           onPress={() =>{
@@ -65,12 +65,12 @@ function ForumLandingPage({navigation}) {
             {getScreen(r)}
            // {{emptyForum(r)} ?  navigation.navigate("Add Post") :  navigation.navigate("View Posts")}
             
-           // navigation.navigate("View Forum" /*"Groups", {group : item}*/)
+           // navigation.navigate("View Forum" )
           }}
         >
           <Text style={styles.itemName}>{r}</Text>
         </TouchableOpacity>
-      ))}
+      ))} */}
     </View>
   );
 

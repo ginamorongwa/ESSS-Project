@@ -14,7 +14,7 @@ import ViewPosts from "./src/screens/Forum/ViewPosts";
 import ViewGroupForum from "./src/screens/Forum/ViewGroupForum";
 import AddPostScreen from "./src/screens/Forum/AddPostScreen";
 import GroupParticipants from "./src/screens/Groups/GroupParticipants";
-
+import { List } from "./src/screens/List/List";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -35,6 +35,7 @@ export default function App() {
         <Stack.Screen name="Add Post" component={AddPostScreen} />
         <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="ToDo" component={ToDo} />
+        <Stack.Screen name="Course Work" component={List} />
       </Stack.Navigator>
     </NavigationContainer>
   );

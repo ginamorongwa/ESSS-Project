@@ -108,8 +108,8 @@ function SignupScreen({ navigation }) {
           autoCapitalize="none"
           onChangeText={(text) => setDegree(text)}
         />
-
-        {/* <Picker
+{/* 
+        <Picker
           style={{
             marginTop: 10,
             marginBottom: 10,
@@ -119,8 +119,8 @@ function SignupScreen({ navigation }) {
           }}
           selectedValue={year}
           onValueChange={(item) => setYear(item)}
-        > */}
-          {/* <Picker.Item
+        >
+          <Picker.Item
             label="Please select your current academic year..."
             value="0"
           />

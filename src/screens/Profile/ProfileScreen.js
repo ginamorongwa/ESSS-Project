@@ -51,9 +51,9 @@ function ProfileScreen({navigation}) {
 
   const Groups = ({ name }) => (
     <View>
-      {name["groups"].map((r) => (
+      {/* {name["groups"].map((r) => (
         <Text style={styles.userInfoSubTitle}>{r}</Text>
-      ))}
+      ))} */}
     </View>
   );
 
