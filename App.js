@@ -1,6 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
+import Calendar from "./src/screens/Calendar/Calendar";
+import ToDo from "./src/screens/ToDo/ToDo";
 import ChatScreen from "./src/screens/Forum/ChatScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
@@ -12,8 +14,12 @@ import ViewPosts from "./src/screens/Forum/ViewPosts";
 import ViewGroupForum from "./src/screens/Forum/ViewGroupForum";
 import AddPostScreen from "./src/screens/Forum/AddPostScreen";
 import GroupParticipants from "./src/screens/Groups/GroupParticipants";
+<<<<<<< HEAD
 import EditProfileScreen from "./src/screens/Profile/EditProfileScreen";
 
+=======
+import { List } from "./src/screens/List/List";
+>>>>>>> scheduler
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -32,8 +38,14 @@ export default function App() {
         <Stack.Screen name="View Posts" component={ViewPosts} />
         <Stack.Screen name="View Forum" component={ViewGroupForum} />
         <Stack.Screen name="Add Post" component={AddPostScreen} />
+<<<<<<< HEAD
         <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
 
+=======
+        <Stack.Screen name="Calendar" component={Calendar} />
+        <Stack.Screen name="ToDo" component={ToDo} />
+        <Stack.Screen name="Course Work" component={List} />
+>>>>>>> scheduler
       </Stack.Navigator>
     </NavigationContainer>
   );

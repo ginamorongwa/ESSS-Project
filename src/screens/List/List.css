@@ -1,0 +1,10 @@
+.e-edit-dialog .e-gridform .form-group.col-md-6 {
+    width: 250px;
+}
+#ShipAddress{
+    resize: vertical;
+}
+:-ms-fullscreen, .e-grid .e-dialog
+{
+    max-width: 552px;
+}

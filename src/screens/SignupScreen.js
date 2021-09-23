@@ -20,7 +20,6 @@ function SignupScreen({ navigation }) {
   const [degree, setDegree] = useState();
   const [year, setYear] = useState("0");
   const [email, setEmail] = useState();
-  const [hometown, setHometown] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   //const [imageUrl, setImageUrl] = useState("");
@@ -61,8 +60,7 @@ function SignupScreen({ navigation }) {
       displayName: displayName,
       degree: degree,
       year: year,
-      groups: [],
-      hometown: "Not set",
+      groups: {},
     });
   };
 
@@ -110,7 +108,7 @@ function SignupScreen({ navigation }) {
           autoCapitalize="none"
           onChangeText={(text) => setDegree(text)}
         />
-
+{/* 
         <Picker
           style={{
             marginTop: 10,
@@ -132,7 +130,7 @@ function SignupScreen({ navigation }) {
           <Picker.Item label="Forth Year" value="4" />
           <Picker.Item label="Fifth Year" value="5" />
           <Picker.Item label="Sixth+ Year" value="6+" />
-        </Picker>
+        </Picker> */}
       </View>
 
       <View style={styles.inputView}>
