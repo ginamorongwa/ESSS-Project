@@ -16,15 +16,11 @@ import ViewPosts from './Forum/ViewPosts';
 import Home from './Home'
 
 import ForumLandingPage from './Forum/ForumLandingPage';
-<<<<<<< HEAD
 
-
-
-=======
 import Calendar from './Calendar/Calendar';
 import ToDo from './ToDo/ToDo';
 import { List } from './List/List';
->>>>>>> scheduler
+
 const Tab = createMaterialTopTabNavigator();
 
 export default function HomeScreen() {

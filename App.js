@@ -14,12 +14,12 @@ import ViewPosts from "./src/screens/Forum/ViewPosts";
 import ViewGroupForum from "./src/screens/Forum/ViewGroupForum";
 import AddPostScreen from "./src/screens/Forum/AddPostScreen";
 import GroupParticipants from "./src/screens/Groups/GroupParticipants";
-<<<<<<< HEAD
+
 import EditProfileScreen from "./src/screens/Profile/EditProfileScreen";
 
-=======
+
 import { List } from "./src/screens/List/List";
->>>>>>> scheduler
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -38,14 +38,10 @@ export default function App() {
         <Stack.Screen name="View Posts" component={ViewPosts} />
         <Stack.Screen name="View Forum" component={ViewGroupForum} />
         <Stack.Screen name="Add Post" component={AddPostScreen} />
-<<<<<<< HEAD
         <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
-
-=======
         <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="ToDo" component={ToDo} />
         <Stack.Screen name="Course Work" component={List} />
->>>>>>> scheduler
       </Stack.Navigator>
     </NavigationContainer>
   );
