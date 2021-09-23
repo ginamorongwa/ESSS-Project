@@ -4,37 +4,27 @@ import {StyleSheet, View, Text, Button, TextInput} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../../navigation/AuthProvider'
 import { submitSubject } from '../../API/FirebaseAPI';
-import { auth, db } from '../../firebase'
 
 
 
-function AddChatScreen({route, navigation}) {
+function AddChatScreen({navigation}) {
 
-    const { docID } = route.params;
-    const curDate = new Date().toLocaleString();
-
-    var user = auth.currentUser;
+    const {user, logout} = useContext(AuthContext);
 
     const [content, setText] = useState("");
     const [title, setTitle] = useState("");
 
     function addSubject (){
-        
-
-        var subject = {
-            "creatorDName": user.displayName,
-            "postTitle": title,
-            "postContent": content,
-            "createdAt": curDate,
-            "replies": [],
-
+        var subject ={
+            "title": title,
+            "content": content,
         }
 
-        submitSubject(docID, subject, submitComplete)
+        submitSubject(subject, submitComplete)
     }
 
     function submitComplete(){
-        navigation.navigate("View Forum", {docID: docID});
+        navigation.navigate("View Posts");
     }
     
    
@@ -65,7 +55,7 @@ function AddChatScreen({route, navigation}) {
 
     return (
         <View style = {styles.container}>
-            <Text style = {styles.titleText}>Create a new post</Text>
+            <Text style = {styles.titleText}>Add a subject</Text>
             <TextInput style = {{width: 700, height: 100, marginTop: 10, padding: 20, backgroundColor: '#ffffff'}}
                placeholder = "Enter a title..."
                placeholderTextColor = "#d3d3d3"

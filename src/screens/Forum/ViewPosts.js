@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, FlatList, Button, TouchableOpacity} from "react-native";
 
 import DiscussionBoard from "react-discussion-board";
+import { getGroups, joinGroup } from "../../API/FirebaseAPI";
 import { auth } from "../../firebase/index";
 
 import "react-discussion-board/dist/index.css";
 
-const ViewPosts = () => {
+function ViewPosts(navigation) {
   const allPosts = [
     {
       profileImage:

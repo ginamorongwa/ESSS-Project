@@ -12,7 +12,11 @@ import BrowseGroupsScreen from './Groups/BrowseGroupsScreen';
 import HomeStack from '../navigation/HomeStack';
 import AddChatScreen from './Forum/AddChatScreen';
 import ViewPosts from './Forum/ViewPosts';
+
 import Home from './Home'
+
+import ForumLandingPage from './Forum/ForumLandingPage';
+
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -27,7 +31,7 @@ export default function HomeScreen() {
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
           <Tab.Screen name="Groups" component={BrowseGroupsScreen} />
-          <Tab.Screen name="Forums" component={AddChatScreen} />
+          <Tab.Screen name="Forums" component={ForumLandingPage} />
           
         </Tab.Navigator>
       );

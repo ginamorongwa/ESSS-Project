@@ -5,11 +5,14 @@ import ChatScreen from "./src/screens/Forum/ChatScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import SignupScreen from "./src/screens/SignupScreen";
-import { Provider } from "react-native-paper";
 import ProfileScreen from "./src/screens/Profile/ProfileScreen";
 import BrowseGroupsScreen from "./src/screens/Groups/BrowseGroupsScreen";
 import AddChatScreen from "./src/screens/Forum/AddChatScreen";
 import ViewPosts from "./src/screens/Forum/ViewPosts";
+import ViewGroupForum from "./src/screens/Forum/ViewGroupForum";
+import AddPostScreen from "./src/screens/Forum/AddPostScreen";
+import GroupParticipants from "./src/screens/Groups/GroupParticipants";
+import EditProfileScreen from "./src/screens/Profile/EditProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -24,8 +27,13 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Groups" component={BrowseGroupsScreen} />
-        <Stack.Screen name="Add Chat" component={AddChatScreen} />
+        <Stack.Screen name="Group Participants" component={GroupParticipants} />
+        <Stack.Screen name="Start Post" component={AddChatScreen} />
         <Stack.Screen name="View Posts" component={ViewPosts} />
+        <Stack.Screen name="View Forum" component={ViewGroupForum} />
+        <Stack.Screen name="Add Post" component={AddPostScreen} />
+        <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

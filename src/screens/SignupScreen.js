@@ -20,6 +20,7 @@ function SignupScreen({ navigation }) {
   const [degree, setDegree] = useState();
   const [year, setYear] = useState("0");
   const [email, setEmail] = useState();
+  const [hometown, setHometown] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   //const [imageUrl, setImageUrl] = useState("");
@@ -60,7 +61,8 @@ function SignupScreen({ navigation }) {
       displayName: displayName,
       degree: degree,
       year: year,
-      groups: {},
+      groups: [],
+      hometown: "Not set",
     });
   };
 

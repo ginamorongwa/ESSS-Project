@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, StyleSheet, FlatList, Button } from "react-native";
 
 import firestore from "@react-native-firebase/firestore";
 import { getGroups, joinGroup } from "../../API/FirebaseAPI";
@@ -19,7 +12,7 @@ import { auth, db } from "../../firebase";
 
 // when you click on a group, view participants
 
-function BrowseGroupsScreen({navigation}) {
+function BrowseGroupsScreen() {
   const [groupsList, setGroupsList] = useState();
 
   var user = auth.currentUser;
@@ -45,20 +38,24 @@ function BrowseGroupsScreen({navigation}) {
 
   const Item = ({ name }) => (
     <View style={styles.item}>
-      <TouchableOpacity onPress = {() => navigation.navigate("Group Participants", {groupName: name}) }>
-        <Text style={styles.itemName}>{name}</Text>
-      </TouchableOpacity>
+      <Text style={styles.itemName}>{name}</Text>
       <View>
-        <Button
-          style={styles.joinButton}
-          title="Join"
-          onPress={() => {
-            joinGroup(user.displayName, user.email, name);
-          }}
-        />
+        <Button style={styles.joinButton} title = "Join" onPress = {() => {joinGroup(user.displayName, user.email, name)}}/>
       </View>
     </View>
   );
+
+  /*onGroupsReceived = (foodList) => {
+        this.setState(prevState => ({
+          foodList: prevState.foodList = foodList
+        }));
+      }
+    
+    componentDidMount() {
+        getFoods(this.onGroupsReceived);
+    }*/
+
+  //console.log(getGroups());
 
   return (
     <View style={styles.container}>
@@ -68,9 +65,14 @@ function BrowseGroupsScreen({navigation}) {
       </Text>
       <FlatList
         style={styles.flatList}
+        // ItemSeparatorComponent={() => <Divider style={{ backgroundColor: 'black' }} />}
         data={groupsList}
         ItemSeparatorComponent={ItemSeparatorView}
         renderItem={({ item }) => <Item name={item} />}
+        /*keyExtractor={(item) => item.id}
+                        renderItem={({item}) => 
+                        <ListItem item={item}
+                        onPress={()=> navigation.navigate("Groups", {group : item})}/> }*/
       />
     </View>
   );
