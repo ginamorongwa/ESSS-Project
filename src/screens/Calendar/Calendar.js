@@ -249,17 +249,23 @@ export class Calendar extends Base {
     this.getDaysArray = this.getDaysArray.bind(this);
 
     this.calendarEventsRef = firebase
-      .firestore()
-      .collection("members")
-      .doc(firebase.auth().currentUser.uid)
-      .collection("calendarEvents");
+        .firestore()
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .collection("calendarEvents");
     
     this.activityDataRef = firebase
-    .firestore()
-    .collection("members")
-    .doc(firebase.auth().currentUser.uid)
-    .collection("activityData");
+        .firestore()
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .collection("activityData");
 
+    // this.todoListRef = firebase
+    //     .firestore()
+    //     .collection("users")
+    //     .doc(firebase.auth().currentUser.uid)
+    //     .collection("todoList");
+        
 
     
     this.ActivityID = 2;

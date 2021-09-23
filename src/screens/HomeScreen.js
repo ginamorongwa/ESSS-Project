@@ -14,6 +14,7 @@ import AddChatScreen from './Forum/AddChatScreen';
 import ViewPosts from './Forum/ViewPosts';
 import ForumLandingPage from './Forum/ForumLandingPage';
 import Calendar from './Calendar/Calendar';
+import ToDo from './ToDo/ToDo';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -29,7 +30,7 @@ export default function HomeScreen() {
           <Tab.Screen name="Groups" component={BrowseGroupsScreen} />
           <Tab.Screen name="Forums" component={ForumLandingPage} />
           <Tab.Screen name="Calendar" component={Calendar} />
-          
+          <Tab.Screen name="ToDo" component={ToDo} />
         </Tab.Navigator>
       );
 }

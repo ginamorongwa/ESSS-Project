@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import Calendar from "./src/screens/Calendar/Calendar";
+import ToDo from "./src/screens/ToDo/ToDo";
 import ChatScreen from "./src/screens/Forum/ChatScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
@@ -33,6 +34,7 @@ export default function App() {
         <Stack.Screen name="View Forum" component={ViewGroupForum} />
         <Stack.Screen name="Add Post" component={AddPostScreen} />
         <Stack.Screen name="Calendar" component={Calendar} />
+        <Stack.Screen name="ToDo" component={ToDo} />
       </Stack.Navigator>
     </NavigationContainer>
   );
