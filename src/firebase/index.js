@@ -22,6 +22,14 @@ const firebaseConfig = {
   appId: "1:960134604085:web:121d9eb8d70cfd57b8987c",
   measurementId: "G-QCRLFXX167"*/
 
+  /*apiKey: "AIzaSyAIqT-uDTArSld2mpE6NWsUq4EhpUay0YQ",
+  authDomain: "esssproject.firebaseapp.com",
+  projectId: "esssproject",
+  storageBucket: "esssproject.appspot.com",
+  messagingSenderId: "1030917353274",
+  appId: "1:1030917353274:web:7336e3072b9dcd5c87ea03",
+  measurementId: "G-L60P804LZ5"*/
+
   // apiKey: "AIzaSyAIqT-uDTArSld2mpE6NWsUq4EhpUay0YQ",
   // authDomain: "esssproject.firebaseapp.com",
   // projectId: "esssproject",

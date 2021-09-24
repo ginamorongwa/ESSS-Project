@@ -39,6 +39,9 @@
     "react-native-web": "~0.13.12",
 
     "@expo/vector-icons": "^12.0.5",
+    "expo-constants": "^11.0.2",
+    "moment": "^2.29.1",
+    "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "@syncfusion/ej2": "19.2.62",
     "@syncfusion/ej2-base": "19.2.60",
     "@syncfusion/ej2-buttons": "^19.2.60",
@@ -92,6 +95,7 @@
     "react-native-unimodules": "~0.14.5",
     "request": "^2.79.0",
     "validator": "^13.6.0"
+
 
     "reanimated-bottom-sheet": "^1.0.0-alpha.22"
 
