@@ -54,6 +54,15 @@ const firebaseConfig = {
   messagingSenderId: "829890238663",
   appId: "1:829890238663:web:45ed796cc67ae1a0c3c6e2",
   measurementId: "G-XDZJ5HSEDH"
+  
+  /*apiKey: "AIzaSyAIqT-uDTArSld2mpE6NWsUq4EhpUay0YQ",
+  authDomain: "esssproject.firebaseapp.com",
+  projectId: "esssproject",
+  storageBucket: "esssproject.appspot.com",
+  messagingSenderId: "1030917353274",
+  appId: "1:1030917353274:web:7336e3072b9dcd5c87ea03",
+  measurementId: "G-L60P804LZ5"*/
+
 };
 let app;
 if (firebase.apps.length === 0) {

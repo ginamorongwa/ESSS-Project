@@ -20,6 +20,9 @@ import EditProfileScreen from "./src/screens/Profile/EditProfileScreen";
 
 import { List } from "./src/screens/List/List";
 
+import EditProfileScreen from "./src/screens/Profile/EditProfileScreen";
+
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -42,6 +45,7 @@ export default function App() {
         <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="ToDo" component={ToDo} />
         <Stack.Screen name="Course Work" component={List} />
+        <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
